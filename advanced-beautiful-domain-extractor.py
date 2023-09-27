@@ -85,15 +85,20 @@ if st.button("Extract Domains"):
 
     for domain in sorted_domains:
         title, redirect_url = get_page_title(domain)
-        extracted_date = datetime.datetime.now().strftime("%d %B %Y %A %I:%M %p")
-        row_color = random.choice(["lightgray", "lightpink", "lightblue"])
 
-        # Make the first column clickable to open URLs in a new tab
-        table_html += f"<tr style='background-color: {row_color};'>"
-        table_html += f"<td style='border: 2px solid black; padding: 5px;'><a href='{domain}' target='_blank'>{domain}</a></td>"
-        table_html += f"<td style='border: 2px solid black; padding: 5px;'>{title}</td>"
-        table_html += f"<td style='border: 2px solid black; padding: 5px;'>{extracted_date}</td>"
-        table_html += "</tr>"
+        # Check if the title is "Failed to establish a connection to the domain"
+        if title != "Failed to establish a connection to the domain":
+            # Check if the title is "Title not available"
+            if title != "Title not available":
+                extracted_date = datetime.datetime.now().strftime("%d %B %Y %A %I:%M %p")
+                row_color = random.choice(["lightgray", "lightpink", "lightblue"])
+
+                # Make the first column clickable to open URLs in a new tab
+                table_html += f"<tr style='background-color: {row_color};'>"
+                table_html += f"<td style='border: 2px solid black; padding: 5px;'><a href='{domain}' target='_blank'>{domain}</a></td>"
+                table_html += f"<td style='border: 2px solid black; padding: 5px;'>{title}</td>"
+                table_html += f"<td style='border: 2px solid black; padding: 5px;'>{extracted_date}</td>"
+                table_html += "</tr>"
 
     table_html += "</table>"
 
